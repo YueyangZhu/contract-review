@@ -10,6 +10,11 @@ settings = get_settings()
 
 Base.metadata.create_all(bind=engine)
 
+# Seed default demo users in production on first startup
+from seed import seed  # noqa: E402
+
+seed()
+
 app = FastAPI(
     title="智能合同审核系统 API",
     description="面向企业内部的一体化合同审核工作流平台",
