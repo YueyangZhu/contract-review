@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: contract-review-api
+    runtime: docker
+    repo: https://github.com/YOUR_GITHUB_USERNAME/contract-review.git
+    branch: main
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: contract-review-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: LLM_PROVIDER
+        value: mock
+      - key: FRONTEND_URL
+        value: https://YOUR_VERCEL_DOMAIN.vercel.app
+      - key: UPLOAD_DIR
+        value: /app/uploads
+    disk:
+      name: contract-uploads
+      mountPath: /app/uploads
+      sizeGB: 1
+
+databases:
+  - name: contract-review-db
+    databaseName: contract_review
+    user: contract_review
+    plan: free

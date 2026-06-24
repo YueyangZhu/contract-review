@@ -1,0 +1,60 @@
+import type { RiskRule } from '@/types';
+
+export const riskRules: RiskRule[] = [
+  {
+    id: 'ip-ownership',
+    level: 'high',
+    category: '知识产权',
+    patterns: [/知识产权归乙方所有/g, /成果归乙方所有/g],
+    description: '委托开发项目中，知识产权全部归服务方所有，可能导致甲方无法拥有核心资产。',
+    suggestion: '建议约定开发成果知识产权归甲方所有，或约定双方共有及具体使用范围。',
+  },
+  {
+    id: 'payment-delay',
+    level: 'medium',
+    category: '付款条款',
+    patterns: [/最长不得超过验收合格后六个月/g, /验收合格后\d{1,2}个月支付/g],
+    description: '尾款支付周期过长，影响乙方资金周转，且验收标准不明确易引发争议。',
+    suggestion: '建议缩短尾款支付周期至验收合格后 30 日内，并明确验收标准与异议期限。',
+  },
+  {
+    id: 'high-penalty',
+    level: 'high',
+    category: '违约责任',
+    patterns: [/违约金为合同总金额的百分之三十/g, /违约金为合同总金额的\d{1,2}%/g],
+    description: '违约金比例高达合同总金额的 30%，远超司法实践中通常支持的合理范围。',
+    suggestion: '建议将违约金调整为不超过合同总金额的 20%，或约定实际损失赔偿原则。',
+  },
+  {
+    id: 'late-delivery-penalty',
+    level: 'medium',
+    category: '违约责任',
+    patterns: [/每逾期一日.*按合同总金额的千分之五/g, /每日.*千分之五.*违约金/g],
+    description: '逾期交付违约金为日千分之五，年化利率过高，可能被法院认定为显失公平。',
+    suggestion: '建议将逾期违约金调整为日万分之五至千分之一之间，并设置上限。',
+  },
+  {
+    id: 'no-acceptance-standard',
+    level: 'medium',
+    category: '验收标准',
+    patterns: [/以双方确认的《需求规格说明书》为准/g],
+    description: '仅提及需求规格说明书，但未明确验收流程、标准及争议处理方式。',
+    suggestion: '建议补充验收测试用例、验收期限、缺陷修复期限及未通过验收的处理机制。',
+  },
+  {
+    id: 'one-sided-jurisdiction',
+    level: 'low',
+    category: '争议解决',
+    patterns: [/甲方所在地人民法院提起诉讼/g],
+    description: '约定由甲方所在地法院管辖，对乙方存在一定的不利因素。',
+    suggestion: '建议约定为被告所在地或合同履行地法院管辖，以保持双方诉讼地位对等。',
+  },
+  {
+    id: 'vague-delivery-time',
+    level: 'low',
+    category: '交付期限',
+    patterns: [/合同签订后三十个工作日内完成/g],
+    description: '交付期限固定为工作日，但未考虑需求变更、甲方配合等因素。',
+    suggestion: '建议增加“因甲方原因导致的延误，交付期限相应顺延”的免责条款。',
+  },
+];
